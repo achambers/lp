@@ -1,0 +1,9 @@
+{
+  "id":12345,
+  "name":"Julian Doherty",
+  "priceRange":{
+    "min":120,
+    "max":150
+  },
+  "requirements":["internet", "bath"]
+}

@@ -4,25 +4,17 @@ $LOAD_PATH.unshift(current_dir)
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'spec_helper'
+require 'json'
 
 describe LonelyPlanet::DataLoader do
   before do
     DataMapper.auto_migrate!
 
-    @accommodation_data = {
-        "id" => 4321,
-        "name" => "Hotel Awesome",
-        "price" => 130,
-        "attributes" => ["close to transport", "internet", "bath"],
-        "capacity" => {"total" => 25, "free" => 12}
-    }
+    file = File.read('dat/accommodation_sample.json')
+    @accommodation_data = JSON.parse(file)
 
-    @traveller_data = {
-        "id" => 12345,
-        "name" => "Julian Doherty",
-        "priceRange" => {"min" => 120, "max" => 150},
-        "requirements" => ["internet", "bath"]
-    }
+    file = File.read('dat/traveller_sample.json')
+    @traveller_data = JSON.parse(file)
   end
 
   it 'should not load any accommodation data when it is nil' do
