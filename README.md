@@ -10,3 +10,7 @@ Maybe the simplest thing to do is just generate a new JSON based data set after 
 
 Obviously, doing this means we will be dealing with the JSON in memory which is cool for the number of records we are going to be using.  If we start getting into the millions, however,
 we would want to look at doing something along the lines of the above ideas with moving the data into another data store such as Reddis or Postgres.
+
+------------------------
+
+Have done a bit of a back flip and am now thinking that the best bet is to load the data into a sqlite3 db.  Gona give that a try
