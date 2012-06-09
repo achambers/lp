@@ -1,0 +1,10 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    clamp (0.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  clamp (>= 0.2.3)
