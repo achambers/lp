@@ -18,8 +18,8 @@ describe LonelyPlanet::DataLoader do
     }
   end
 
-  it 'should load an accommodation into the database' do
-    load(@accommodation_data)
+  it 'should load an accommodation from json and save into the database' do
+    LonelyPlanet::DataLoader.load(@accommodation_data)
 
     Accommodation.all.length.must_equal 1
 
@@ -32,26 +32,4 @@ describe LonelyPlanet::DataLoader do
     accommodation.capacity.total.must_equal @accommodation_data['capacity']['total']
     accommodation.capacity.free.must_equal @accommodation_data['capacity']['free']
   end
-end
-
-def load(attrs)
-  accommodation = Accommodation.new(attrs)
-  accommodation.attributez = accommodation_attributez(attrs)
-  accommodation.capacity = accommodation_capacity(attrs)
-
-  accommodation.save
-end
-
-def accommodation_attributez attrs
-  attributes = []
-  attrs['attributes'].each do |attribute_string|
-    attribute = Attribute.first(:name => attribute_string) || Attribute.create(:name => attribute_string)
-    attributes << attribute
-  end
-
-  attributes
-end
-
-def accommodation_capacity attrs
-  Capacity.create(:total => attrs['capacity']['total'], :free => attrs['capacity']['free'])
 end
