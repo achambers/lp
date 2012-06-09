@@ -1,0 +1,21 @@
+require 'json'
+require File.expand_path(File.dirname(__FILE__) + '/config/boot')
+
+task :default => [:process]
+
+desc 'Process Traveller and Accommodation files'
+task :process, :traveller_file, :accommodation_file do |t, args|
+  travellers = args[:traveller_file]
+  accommodations = args[:accommodation_file]
+
+  raise 'Traveller file not provided' if travellers.nil?
+  raise 'Accommodation file not provided' if accommodations.nil?
+
+  raise 'Traveller file does not exist' unless File.exists?(travellers)
+  raise 'Accommodation file does not exist' unless File.exists?(accommodations)
+
+  travellers_file = File.read(travellers)
+  accommodations_file = File.read(accommodations)
+
+  #LonelyPlanet::DataLoader.load(JSON.parse(travellers_file), JSON.parse(accommodations_file))
+end
