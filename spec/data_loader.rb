@@ -38,12 +38,7 @@ describe LonelyPlanet::DataLoader do
 
     accommodation = Accommodation.first
 
-    accommodation.id.must_equal @accommodation_data['id']
-    accommodation.name.must_equal @accommodation_data['name']
-    accommodation.price.must_equal @accommodation_data['price']
-    accommodation.attributez.length.must_equal @accommodation_data['attributes'].length
-    accommodation.capacity.total.must_equal @accommodation_data['capacity']['total']
-    accommodation.capacity.free.must_equal @accommodation_data['capacity']['free']
+    accommodation.to_json.must_equal @accommodation_data
   end
 
   it 'should not load any traveller data when it is nil' do
@@ -59,10 +54,6 @@ describe LonelyPlanet::DataLoader do
 
     traveller = Traveller.first
 
-    traveller.id.must_equal @traveller_data['id']
-    traveller.name.must_equal @traveller_data['name']
-    traveller.price_range.min.must_equal @traveller_data['priceRange']['min']
-    traveller.price_range.max.must_equal @traveller_data['priceRange']['max']
-    traveller.requirements.length.must_equal @traveller_data['requirements'].length
+    traveller.to_json.must_equal @traveller_data
   end
 end
