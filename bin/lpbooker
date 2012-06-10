@@ -66,12 +66,12 @@ class SearchCommand < Clamp::Command
         :price_max => max_price
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(accommodation_data, search_params)
+    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(accommodation_data, search_params)
 
     puts 'Search Result'
     puts '---'
     puts "#{accommodation['name']}, #{accommodation['price']}"
-  end  
+  end
 end
 
 

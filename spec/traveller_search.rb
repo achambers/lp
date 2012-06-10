@@ -8,7 +8,7 @@ require 'json'
 
 describe LonelyPlanet::TravellerSearch do
   before do
-    file = File.read('dat/travellers.json')
+    file = File.read(File.dirname(__FILE__) + '/dat/travellers.json')
     @traveller_data = JSON.parse(file)
   end
 

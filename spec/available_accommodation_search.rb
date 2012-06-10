@@ -6,12 +6,12 @@ require 'minitest/autorun'
 require 'spec_helper'
 require 'json'
 
-describe LonelyPlanet::AccommodationSearch do
+describe LonelyPlanet::AvailableAccommodationSearch do
   before do
-    file = File.read('dat/accommodation.json')
+    file = File.read(File.dirname(__FILE__) + '/dat/accommodation.json')
     @accommodation_data = JSON.parse(file)
 
-    file = File.read('dat/travellers.json')
+    file = File.read(File.dirname(__FILE__) + '/dat/travellers.json')
     @traveller_data = JSON.parse(file)
   end
 
@@ -24,7 +24,7 @@ describe LonelyPlanet::AccommodationSearch do
         :price_max => wilson['priceRange']['max']
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.wont_be_nil
     accommodation['name'].must_equal 'Little Backpackers'
@@ -39,7 +39,7 @@ describe LonelyPlanet::AccommodationSearch do
         :price_max => evan['priceRange']['max']
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.wont_be_nil
     accommodation['name'].must_equal 'Pouros Campsite'
@@ -52,7 +52,7 @@ describe LonelyPlanet::AccommodationSearch do
         :requirements => julian['requirements']
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.must_be_nil
   end
@@ -66,7 +66,7 @@ describe LonelyPlanet::AccommodationSearch do
         :price_max => bob['priceRange']['max']
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.must_be_nil
   end
@@ -80,7 +80,7 @@ describe LonelyPlanet::AccommodationSearch do
         :price_max => mark['priceRange']['max']
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.must_be_nil
   end

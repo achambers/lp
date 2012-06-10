@@ -1,5 +1,5 @@
 module LonelyPlanet
-  class AccommodationSearch
+  class AvailableAccommodationSearch
     class << self
       def search_accommodation(data, params)
         data.sort! { |a, b| a['price'] <=> b['price'] }
