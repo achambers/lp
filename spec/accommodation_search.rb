@@ -51,7 +51,22 @@ describe LonelyPlanet::AccommodationSearch do
     accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.wont_be_nil
-    accommodation['name'].must_equal 'Little Backpackers The Second'
+    accommodation['name'].must_equal 'Little Backpackers'
+  end
+
+  it 'should find the cheapest accommodation that matches a travellers requirements and price range' do
+    evan = @traveller_data[1]
+
+    search_params = {
+        :requirements => evan['requirements'],
+        :price_min => evan['priceRange']['min'],
+        :price_max => evan['priceRange']['max']
+    }
+
+    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+
+    accommodation.wont_be_nil
+    accommodation['name'].must_equal 'Pouros Campsite'
   end
 
   it 'should not find an accommodation when a traveller requirements do not match' do
@@ -64,5 +79,9 @@ describe LonelyPlanet::AccommodationSearch do
     accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.must_be_nil
+  end
+
+  it 'should not find an accommodation when a travellers price range does not match' do
+
   end
 end
