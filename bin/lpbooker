@@ -24,18 +24,24 @@ end
 
 
 class TravellerCommand < Clamp::Command
-  parameter "TRAVELLERS_JSON", "travellers JSON data file"
-  parameter "ACCOMMODATION_JSON", "accommodation JSON data file"  
+  parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    "data/#{s}"
+  end
+  parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    "data/#{s}"
+  end
   parameter "TRAVELLER_ID", "Identifier of traveller to display" do |s| 
     Integer(s)
   end
   
   def execute
-    puts "travellers_json: #{travellers_json}"
-    puts "accommodation_json: #{accommodation_json}"    
-    puts "traveller_id: #{traveller_id}"
-    puts "go do your stuff..."
-  end  
+    result = LonelyPlanet::CliManager.find_traveller(travellers_json, accommodation_json, traveller_id)
+
+    puts result[:traveller]
+    puts result[:booking]
+  end
 end
 
 

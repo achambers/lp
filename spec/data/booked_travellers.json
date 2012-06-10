@@ -1,0 +1,31 @@
+[
+  {
+    "id":12345,
+    "name":"Julian Doherty",
+    "priceRange":{
+      "min":120,
+      "max":150
+    },
+    "requirements":["internet", "bath", "some random requirement"],
+    "booking": 4321
+  },
+  {
+    "id":1,
+    "name":"Evan Pacocha",
+    "priceRange":{
+      "min":40,
+      "max":291
+    },
+    "requirements":["close to transport", "bar", "meeting rooms"]
+  },
+  {
+    "id":9,
+    "name":"Wilson McClure",
+    "priceRange":{
+      "min":185,
+      "max":326
+    },
+    "requirements":["close to transport", "24 reception", "meeting rooms"],
+    "booking": 4545454
+  }
+]
