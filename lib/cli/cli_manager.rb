@@ -2,7 +2,6 @@ module LonelyPlanet
   class CliManager
     class << self
       def find_traveller(travellers_file, accommodations_file, id)
-        puts DATA_DIR
         traveller_data = JSON.parse(File.read(DATA_DIR + '/' + travellers_file))
 
         traveller = LonelyPlanet::Search.search(traveller_data, id)
