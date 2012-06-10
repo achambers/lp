@@ -1,7 +1,5 @@
 LP_ENV = LP_ENV ||= :production
 
-puts "LP_ENV = #{LP_ENV}"
-
 APP_ROOT = File.dirname(__FILE__) + '/..'
 
 module LonelyPlanet

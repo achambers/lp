@@ -3,6 +3,8 @@
 # add gem "clamp", ">= 0.2.3" to your bundle file if you use this
 # clamp reference at https://github.com/mdub/clamp
 require 'clamp'
+require 'json'
+require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 
 
 class AccommodationCommand < Clamp::Command
@@ -38,8 +40,14 @@ end
 
 
 class SearchCommand < Clamp::Command
-  parameter "TRAVELLERS_JSON", "travellers JSON data file"
-  parameter "ACCOMMODATION_JSON", "accommodation JSON data file"  
+  parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?(s)
+    s
+  end
+  parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?(s)
+    s
+  end
   parameter "MIN_PRICE", "Minimum price traveller wants to pay" do |s| 
     Integer(s)
   end
@@ -49,12 +57,20 @@ class SearchCommand < Clamp::Command
   parameter "REQUIREMENTS ...", "List of required attributes traveller desires"
   
   def execute
-    puts "travellers_json: #{travellers_json}"
-    puts "accommodation_json: #{accommodation_json}"    
-    puts "min_price: #{min_price}"
-    puts "max_price: #{max_price}"
-    puts "requirements_list: #{requirements_list}"
-    puts "go do your stuff..."
+    file = File.read(accommodation_json)
+    accommodation_data = JSON.parse(file)
+
+    search_params = {
+        :requirements => requirements_list,
+        :price_min => min_price,
+        :price_max => max_price
+    }
+
+    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(accommodation_data, search_params)
+
+    puts 'Search Result'
+    puts '---'
+    puts "#{accommodation['name']}, #{accommodation['price']}"
   end  
 end
 
