@@ -19,8 +19,3 @@ task :process, :traveller_file, :accommodation_file do |t, args|
 
   #LonelyPlanet::DataLoader.load(JSON.parse(travellers_file), JSON.parse(accommodations_file))
 end
-
-desc 'Test match'
-task :match do
-
-end
