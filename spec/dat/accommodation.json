@@ -1,0 +1,42 @@
+[
+  {
+    "id":4321,
+    "name":"Hotel Awesome",
+    "price":130,
+    "attributes":["close to transport", "internet", "bath"],
+    "capacity":{
+      "total":25,
+      "free":12
+    }
+  },
+  {
+    "id":171,
+    "name":"Wisoky Campsite",
+    "price":51,
+    "attributes":["internet", "phone", "parking", "gym", "meeting rooms"],
+    "capacity":{
+      "total":137,
+      "free":20
+    }
+  },
+  {
+    "id":401,
+    "name":"Pouros Campsite",
+    "price":66,
+    "attributes":["close to transport", "internet", "bath", "room service", "bar", "phone", "parking", "air conditioning", "meeting rooms", "quiet"],
+    "capacity":{
+      "total":74,
+      "free":49
+    }
+  },
+  {
+    "id":216,
+    "name":"Little Backpackers",
+    "price":294,
+    "attributes":["close to transport", "internet", "bath", "24 reception", "restaurant", "room service", "bar", "air conditioning", "meeting rooms"],
+    "capacity":{
+      "total":87,
+      "free":15
+    }
+  }
+]
