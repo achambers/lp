@@ -16,15 +16,9 @@ module LonelyPlanet
       private
 
       def link(traveller, accommodation)
-        traveller.booking = accommodation.id
+        traveller.booking = accommodation
 
-        unless accommodation.guests
-          accommodation.guests = []
-        end
-
-        accommodation.guests << traveller.id
-
-        accommodation.free_capacity -= 1
+        accommodation.add_guest traveller
       end
 
       def search_params(traveller)

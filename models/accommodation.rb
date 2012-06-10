@@ -9,7 +9,11 @@ class Accommodation
     @attributes = params['attributes']
     @total_capacity = params['capacity']['total']
     @free_capacity = params['capacity']['free']
-    @guests = params['guests']
+    if params['guests']
+      @guests = params['guests']
+    else
+      @guests = []
+    end
   end
 
   def guests?
@@ -27,5 +31,10 @@ class Accommodation
     params['capacity']['free'] = @free_capacity
     params['guests'] = @guests
     params
+  end
+
+  def add_guest traveller
+    @guests << traveller.id
+    @free_capacity -= 1
   end
 end

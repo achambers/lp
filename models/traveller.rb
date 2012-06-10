@@ -22,4 +22,8 @@ class Traveller
     params['booking'] = @booking
     params
   end
+
+  def booking= accommodation
+    @booking = accommodation.id
+  end
 end
