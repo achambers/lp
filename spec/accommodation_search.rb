@@ -6,16 +6,6 @@ require 'minitest/autorun'
 require 'spec_helper'
 require 'json'
 
-module LonelyPlanet
-  class AccommodationSearch
-    class << self
-      def search(data, id)
-        data.detect {|accommodation| accommodation['id'] == id}
-      end
-    end
-  end
-end
-
 describe LonelyPlanet::AccommodationSearch do
   before do
     file = File.read(File.dirname(__FILE__) + '/dat/accommodation.json')
