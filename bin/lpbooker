@@ -6,15 +6,14 @@ require 'clamp'
 require 'json'
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 
-
 class AccommodationCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
 
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
 
@@ -34,12 +33,12 @@ end
 
 class TravellerCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
 
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
 
@@ -58,19 +57,23 @@ end
 
 class SearchCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
+
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
+
   parameter "MIN_PRICE", "Minimum price traveller wants to pay" do |s| 
     Integer(s)
   end
+
   parameter "MAX_PRICE", "Maximum price traveller wants to pay" do |s| 
     Integer(s)
   end
+  
   parameter "REQUIREMENTS ...", "List of required attributes traveller desires"
   
   def execute
