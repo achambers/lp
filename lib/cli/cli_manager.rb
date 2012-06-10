@@ -2,7 +2,7 @@ module LonelyPlanet
   class CliManager
     class << self
       def find_traveller(travellers_file, accommodations_file, id)
-        traveller_data = JSON.parse(File.read(DATA_DIR + '/' + travellers_file))
+        traveller_data =  LonelyPlanet.read_json(travellers_file)
 
         traveller = LonelyPlanet::Search.search(traveller_data, id)
 
@@ -11,7 +11,7 @@ module LonelyPlanet
         result = {:traveller => "Traveller: #{traveller['name']}"}
 
         if traveller['booking']
-          accommodation_data = JSON.parse(File.read(DATA_DIR + '/' + accommodations_file))
+          accommodation_data = LonelyPlanet.read_json(accommodations_file)
 
           accommodation = LonelyPlanet::Search.search(accommodation_data, traveller['booking'])
 
@@ -28,7 +28,7 @@ module LonelyPlanet
       end
 
       def find_accommodation(travellers_file, accommodations_file, id)
-        accommodation_data = JSON.parse(File.read(DATA_DIR + '/' + accommodations_file))
+        accommodation_data = LonelyPlanet.read_json(accommodations_file)
 
         accommodation = LonelyPlanet::Search.search(accommodation_data, id)
 
@@ -37,7 +37,7 @@ module LonelyPlanet
         result = {:accommodation => "Accommodation: #{accommodation['name']}"}
 
         if accommodation['guests']
-          traveller_data = JSON.parse(File.read(DATA_DIR + '/' + travellers_file))
+          traveller_data = LonelyPlanet.read_json(travellers_file)
 
           travellers = traveller_data.select do |data|
             accommodation['guests'].include? data['id']
@@ -52,7 +52,7 @@ module LonelyPlanet
       end
 
       def find_availability(travellers_file, accommodations_file, min_price, max_price, requirements)
-        accommodation_data = JSON.parse(File.read(DATA_DIR + '/' + accommodations_file))
+        accommodation_data = LonelyPlanet.read_json(accommodations_file)
 
         search_params = {
             :requirements => requirements,
@@ -76,8 +76,8 @@ module LonelyPlanet
         File.delete(DATA_DIR + '/' + travellers_file) if File.exists?(DATA_DIR + '/' + travellers_file)
         File.delete(DATA_DIR + '/' + accommodations_file) if File.exists?(DATA_DIR + '/' + accommodations_file)
 
-        travellers_seed_data = JSON.parse(File.read(DATA_DIR + '/travellers_seed.json'))
-        accommodation_seed_data = JSON.parse(File.read(DATA_DIR + '/accommodation_seed.json'))
+        travellers_seed_data = LonelyPlanet.read_json('/travellers_seed.json')
+        accommodation_seed_data = LonelyPlanet.read_json('/accommodation_seed.json')
 
         result = LonelyPlanet::BookingMatcher.match(travellers_seed_data, accommodation_seed_data)
 
