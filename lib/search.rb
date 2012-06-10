@@ -1,7 +1,11 @@
 module LonelyPlanet
-  class AvailableAccommodationSearch
+  class Search
     class << self
-      def search_accommodation(data, params)
+      def search(data, id)
+        data.detect {|entry| entry['id'] == id}
+      end
+
+      def availability(data, params)
         data.sort! { |a, b| a['price'] <=> b['price'] }
 
         match = data.detect do |accommodation|

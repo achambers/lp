@@ -57,20 +57,21 @@ class SearchCommand < Clamp::Command
   parameter "REQUIREMENTS ...", "List of required attributes traveller desires"
   
   def execute
-    file = File.read(accommodation_json)
-    accommodation_data = JSON.parse(file)
-
-    search_params = {
-        :requirements => requirements_list,
-        :price_min => min_price,
-        :price_max => max_price
-    }
-
-    accommodation = LonelyPlanet::AvailableAccommodationSearch.search_accommodation(accommodation_data, search_params)
-
-    puts 'Search Result'
-    puts '---'
-    puts "#{accommodation['name']}, #{accommodation['price']}"
+    puts 'Still working on this'
+    #file = File.read(accommodation_json)
+    #accommodation_data = JSON.parse(file)
+    #
+    #search_params = {
+    #    :requirements => requirements_list,
+    #    :price_min => min_price,
+    #    :price_max => max_price
+    #}
+    #
+    #accommodation = LonelyPlanet::Search.search(accommodation_data, search_params)
+    #
+    #puts 'Search Result'
+    #puts '---'
+    #puts "#{accommodation['name']}, #{accommodation['price']}"
   end
 end
 
