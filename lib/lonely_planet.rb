@@ -9,6 +9,10 @@ module LonelyPlanet
     data.collect {|x| Accommodation.new(x)}
   end
 
+  def self.to_hash data
+    data.collect {|entry| entry.to_json}
+  end
+
   private
 
   def self.read_json file_name

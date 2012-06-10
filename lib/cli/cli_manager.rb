@@ -74,16 +74,16 @@ module LonelyPlanet
         remove_existing_files(travellers_file, accommodations_file)
 
         travellers = LonelyPlanet.to_travellers('travellers_seed.json')
-        accommodations = LonelyPlanet.to_accommodations('accommodation_seed')
+        accommodations = LonelyPlanet.to_accommodations('accommodation_seed.json')
 
         result = LonelyPlanet::BookingMatcher.match(travellers, accommodations)
 
         File.open(DATA_DIR + '/' + travellers_file, 'w') do |f|
-          f.write(result[:travellers].to_json)
+          f.write(LonelyPlanet.to_hash(result[:travellers]).to_json)
         end
 
         File.open(DATA_DIR + '/' + accommodations_file, 'w') do |f|
-          f.write(result[:accommodations].to_json)
+          f.write(LonelyPlanet.to_hash(result[:accommodations]).to_json)
         end
       end
 

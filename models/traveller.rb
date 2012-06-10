@@ -10,4 +10,16 @@ class Traveller
     @requirements = params['requirements']
     @booking = params['booking']
   end
+
+  def to_json
+    params = {}
+    params['id'] = @id
+    params['name'] = @name
+    params['priceRange'] = {}
+    params['priceRange']['min'] = @min_price
+    params['priceRange']['max'] = @max_price
+    params['requirements'] = @requirements
+    params['booking'] = @booking
+    params
+  end
 end

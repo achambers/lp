@@ -15,4 +15,17 @@ class Accommodation
   def guests?
     !guests.nil? && guests.length > 0
   end
+
+  def to_json
+    params = {}
+    params['id'] = @id
+    params['name'] = @name
+    params['price'] = @price
+    params['attributes'] = @attributes
+    params['capacity'] = {}
+    params['capacity']['total'] = @total_capacity
+    params['capacity']['free'] = @free_capacity
+    params['guests'] = @guests
+    params
+  end
 end
