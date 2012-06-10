@@ -82,6 +82,16 @@ describe LonelyPlanet::AccommodationSearch do
   end
 
   it 'should not find an accommodation when a travellers price range does not match' do
+    bob = @traveller_data[3]
 
+    search_params = {
+        :requirements => bob['requirements'],
+        :price_min => bob['priceRange']['min'],
+        :price_max => bob['priceRange']['max']
+    }
+
+    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+
+    accommodation.must_be_nil
   end
 end
