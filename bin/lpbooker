@@ -12,7 +12,9 @@ class LoadDataCommand < Clamp::Command
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file"
 
   def execute
-    result = LonelyPlanet::CliManager.load_data(travellers_json, accommodation_json)
+    puts 'Loading data...'
+
+    LonelyPlanet::CliManager.load_data(travellers_json, accommodation_json)
 
     puts 'Data loaded'
   end

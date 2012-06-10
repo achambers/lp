@@ -65,7 +65,7 @@ describe LonelyPlanet::CliManager do
   end
 
   describe 'the handling of the bin/lpbooker search call' do
-    
+
     it 'should return a search result when an accommodation matches the search criteria' do
       result = LonelyPlanet::CliManager.find_availability('travellers.json', 'accommodation.json', 50, 200, ['internet', 'bath', 'phone'])
 
