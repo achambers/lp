@@ -60,4 +60,18 @@ describe LonelyPlanet::CliManager do
       result[:guests].must_equal 'Currently no bookings'
     end
   end
+
+  describe 'the handling of the bin/lpbooker search call' do
+    it 'should return a search result when an accommodation matches the search criteria' do
+      result = LonelyPlanet::CliManager.find_availability(SPEC_ROOT + '/data/travellers.json', SPEC_ROOT + '/data/accommodation.json', 50, 200, ['internet', 'bath', 'phone'])
+
+      result[:accommodation].must_equal 'Pouros Campsite, 66'
+    end
+
+    it 'should return a message when no accommodation matches the search criteria' do
+      result = LonelyPlanet::CliManager.find_availability(SPEC_ROOT + '/data/travellers.json', SPEC_ROOT + '/data/accommodation.json', 150, 200, ['internet', 'bath', 'phone'])
+
+      result[:accommodation].must_equal 'No available accommodation matches the criteria'
+    end
+  end
 end

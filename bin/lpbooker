@@ -58,12 +58,12 @@ end
 
 class SearchCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?(s)
-    s
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    "data/#{s}"
   end
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?(s)
-    s
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    "data/#{s}"
   end
   parameter "MIN_PRICE", "Minimum price traveller wants to pay" do |s| 
     Integer(s)
@@ -74,21 +74,9 @@ class SearchCommand < Clamp::Command
   parameter "REQUIREMENTS ...", "List of required attributes traveller desires"
   
   def execute
-    puts 'Still working on this'
-    #file = File.read(accommodation_json)
-    #accommodation_data = JSON.parse(file)
-    #
-    #search_params = {
-    #    :requirements => requirements_list,
-    #    :price_min => min_price,
-    #    :price_max => max_price
-    #}
-    #
-    #accommodation = LonelyPlanet::Search.search(accommodation_data, search_params)
-    #
-    #puts 'Search Result'
-    #puts '---'
-    #puts "#{accommodation['name']}, #{accommodation['price']}"
+    result = LonelyPlanet::CliManager.find_availability(travellers_json, accommodation_json, min_price, max_price, requirements_list)
+
+    puts result[:accommodation]
   end
 end
 
