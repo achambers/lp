@@ -10,11 +10,10 @@ module LonelyPlanet
   class AccommodationSearch
     class << self
       def search_accommodation(data, params)
-        data.sort! {|a,b| a['price'] <=> b['price']}
+        data.sort! { |a, b| a['price'] <=> b['price'] }
 
         match = data.detect do |accommodation|
-          requirements_match?(params, accommodation) &&
-              price_match?(params, accommodation)
+          requirements_match?(params, accommodation) && price_match?(params, accommodation) && has_capacity?(accommodation)
         end
       end
 
@@ -25,6 +24,10 @@ module LonelyPlanet
 
       def price_match?(params, accommodation)
         (accommodation['price'] >= params[:price_min]) && (accommodation['price'] <= params[:price_max])
+      end
+
+      def has_capacity?(accommodation)
+        accommodation['capacity']['free'] > 0
       end
     end
   end
@@ -54,7 +57,7 @@ describe LonelyPlanet::AccommodationSearch do
     accommodation['name'].must_equal 'Little Backpackers'
   end
 
-  it 'should find the cheapest accommodation that matches a travellers requirements and price range' do
+  it 'should find the cheapest accommodation that matches a travellers requirements, price range and has capacity' do
     evan = @traveller_data[1]
 
     search_params = {
@@ -88,6 +91,20 @@ describe LonelyPlanet::AccommodationSearch do
         :requirements => bob['requirements'],
         :price_min => bob['priceRange']['min'],
         :price_max => bob['priceRange']['max']
+    }
+
+    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+
+    accommodation.must_be_nil
+  end
+
+  it 'should not find an accommodation if it does not have free capacity' do
+    mark = @traveller_data[4]
+
+    search_params = {
+        :requirements => mark['requirements'],
+        :price_min => mark['priceRange']['min'],
+        :price_max => mark['priceRange']['max']
     }
 
     accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)

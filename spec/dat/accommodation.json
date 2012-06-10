@@ -30,6 +30,16 @@
     }
   },
   {
+    "id":402,
+    "name":"Pouros Campsite The Second",
+    "price":65,
+    "attributes":["close to transport", "internet", "bath", "room service", "bar", "phone", "parking", "air conditioning", "meeting rooms", "quiet"],
+    "capacity":{
+      "total":74,
+      "free":0
+    }
+  },
+  {
     "id":401,
     "name":"Pouros Campsite",
     "price":66,
@@ -37,6 +47,16 @@
     "capacity":{
       "total":74,
       "free":49
+    }
+  },
+  {
+    "id":403,
+    "name":"Dodgy Campsite",
+    "price":66,
+    "attributes":["Rooftop jacuzzi"],
+    "capacity":{
+      "total":74,
+      "free":0
     }
   }
 ]
