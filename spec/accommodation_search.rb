@@ -39,4 +39,16 @@ describe LonelyPlanet::AccommodationSearch do
     accommodation.wont_be_nil
     accommodation['name'].must_equal 'Little Backpackers'
   end
+
+  it 'should not find an accommodation when a traveller requirements do not match' do
+    julian = @traveller_data[0]
+
+    search_params = {
+        :requirements => julian['requirements']
+    }
+
+    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
+
+    accommodation.must_be_nil
+  end
 end
