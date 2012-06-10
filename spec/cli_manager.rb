@@ -45,7 +45,7 @@ describe LonelyPlanet::CliManager do
       result[:guests].must_be_nil
     end
 
-    it 'should return an accommodation that does have a guests' do
+    it 'should return an accommodation that does have guests' do
       result = LonelyPlanet::CliManager.find_accommodation('booked_travellers.json', 'booked_accommodation.json', 4321)
 
       result[:accommodation].must_equal 'Accommodation: Hotel Awesome'

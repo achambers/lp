@@ -2,11 +2,11 @@ module LonelyPlanet
   class Search
     class << self
       def search(data, id)
-        data.detect {|entry| entry['id'] == id}
+        data.detect {|entry| entry.id == id}
       end
 
       def availability(data, params)
-        sorted_data = data.clone.sort { |a, b| a['price'] <=> b['price'] }
+        sorted_data = data.clone.sort { |a, b| a.price <=> b.price }
 
         match = sorted_data.detect do |accommodation|
           requirements_match?(params, accommodation) && price_match?(params, accommodation) && has_capacity?(accommodation)
@@ -15,15 +15,15 @@ module LonelyPlanet
 
       private
       def requirements_match?(params, accommodation)
-        (params[:requirements] - accommodation['attributes']).length == 0
+        (params[:requirements] - accommodation.attributes).length == 0
       end
 
       def price_match?(params, accommodation)
-        (accommodation['price'] >= params[:price_min]) && (accommodation['price'] <= params[:price_max])
+        (accommodation.price >= params[:price_min]) && (accommodation.price <= params[:price_max])
       end
 
       def has_capacity?(accommodation)
-        accommodation['capacity']['free'] > 0
+        accommodation.free_capacity > 0
       end
     end
   end

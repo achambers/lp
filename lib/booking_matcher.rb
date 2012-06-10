@@ -6,15 +6,15 @@ module LonelyPlanet
           matched_accommodation = LonelyPlanet::Search.availability(accommodations, search_params(traveller))
 
           if matched_accommodation
-            traveller['booking'] = matched_accommodation['id']
+            traveller.booking = matched_accommodation.id
 
-            unless matched_accommodation['guests']
-              matched_accommodation['guests'] = []
+            unless matched_accommodation.guests
+              matched_accommodation.guests = []
             end
 
-            matched_accommodation['guests'] << traveller['id']
+            matched_accommodation.guests << traveller.id
 
-            matched_accommodation['capacity']['free'] -= 1
+            matched_accommodation.free_capacity -= 1
           end
         end
 
@@ -25,9 +25,9 @@ module LonelyPlanet
 
       def search_params traveller
         {
-            :requirements => traveller['requirements'],
-            :price_min => traveller['priceRange']['min'],
-            :price_max => traveller['priceRange']['max']
+            :requirements => traveller.requirements,
+            :price_min => traveller.min_price,
+            :price_max => traveller.max_price
         }
       end
     end
