@@ -1,40 +1,10 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    addressable (2.2.8)
     clamp (0.4.0)
-    data_objects (0.10.8)
-      addressable (~> 2.1)
-    dm-aggregates (1.2.0)
-      dm-core (~> 1.2.0)
-    dm-constraints (1.2.0)
-      dm-core (~> 1.2.0)
-    dm-core (1.2.0)
-      addressable (~> 2.2.6)
-    dm-do-adapter (1.2.0)
-      data_objects (~> 0.10.6)
-      dm-core (~> 1.2.0)
-    dm-migrations (1.2.0)
-      dm-core (~> 1.2.0)
-    dm-sqlite-adapter (1.2.0)
-      dm-do-adapter (~> 1.2.0)
-      do_sqlite3 (~> 0.10.6)
-    dm-timestamps (1.2.0)
-      dm-core (~> 1.2.0)
-    dm-validations (1.2.0)
-      dm-core (~> 1.2.0)
-    do_sqlite3 (0.10.8)
-      data_objects (= 0.10.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   clamp (>= 0.2.3)
-  dm-aggregates
-  dm-constraints
-  dm-core
-  dm-migrations
-  dm-sqlite-adapter
-  dm-timestamps
-  dm-validations

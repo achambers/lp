@@ -14,8 +14,3 @@ require 'bundler/setup'
 Bundler.require(:default, LP_ENV)
 
 Dir.glob(File.dirname(__FILE__) + '/../lib/*') {|file| require file}
-Dir.glob(File.dirname(__FILE__) + '/../models/*') {|file| require file}
-
-require File.expand_path(File.dirname(__FILE__) + '/database')
-
-DataMapper.finalize
