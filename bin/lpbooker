@@ -8,17 +8,26 @@ require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 
 
 class AccommodationCommand < Clamp::Command
-  parameter "TRAVELLERS_JSON", "travellers JSON data file"
-  parameter "ACCOMMODATION_JSON", "accommodation JSON data file"  
+  parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    "data/#{s}"
+  end
+
+  parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
+    raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
+    "data/#{s}"
+  end
+
   parameter "ACCOMMODATION_ID", "Identifier of accommodation to display" do |s| 
     Integer(s)
   end
   
   def execute
-    puts "travellers_json: #{travellers_json}"
-    puts "accommodation_json: #{accommodation_json}"    
-    puts "accommodation_id: #{accommodation_id}"
-    puts "go do your stuff..."
+    result = LonelyPlanet::CliManager.find_accommodation(travellers_json, accommodation_json, accommodation_id)
+
+    puts result[:accommodation]
+    puts '---'
+    puts result[:guests]
   end
 end
 
@@ -28,10 +37,12 @@ class TravellerCommand < Clamp::Command
     raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
+
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
     raise ArgumentError, "File <#{s}> does not exist" unless File.exists?("data/#{s}")
     "data/#{s}"
   end
+
   parameter "TRAVELLER_ID", "Identifier of traveller to display" do |s| 
     Integer(s)
   end

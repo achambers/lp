@@ -27,5 +27,15 @@
     },
     "requirements":["close to transport", "24 reception", "meeting rooms"],
     "booking": 4545454
+  },
+  {
+    "id":10,
+    "name":"Bob Frank",
+    "priceRange":{
+      "min":20,
+      "max":50
+    },
+    "requirements":["close to transport", "24 reception", "meeting rooms"],
+    "booking": 4321
   }
 ]

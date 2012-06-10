@@ -36,4 +36,28 @@ describe LonelyPlanet::CliManager do
       result[:booking].must_equal 'Unknown accommodation'
     end
   end
+
+  describe 'the handling of the bin/lpbooker accommodation call' do
+    it 'should return a message when the accommodation id is not known' do
+      result = LonelyPlanet::CliManager.find_accommodation(SPEC_ROOT + '/data/booked_travellers.json', SPEC_ROOT + '/data/booked_accommodation.json', 1212)
+
+      result[:accommodation].must_equal 'Accommodation not found'
+      result[:guests].must_be_nil
+    end
+
+    it 'should return an accommodation that does have a guests' do
+      result = LonelyPlanet::CliManager.find_accommodation(SPEC_ROOT + '/data/booked_travellers.json', SPEC_ROOT + '/data/booked_accommodation.json', 4321)
+
+      result[:accommodation].must_equal 'Accommodation: Hotel Awesome'
+      result[:guests].must_include 'Julian Doherty'
+      result[:guests].must_include 'Bob Frank'
+    end
+
+    it 'should return an accommodation that does not have any guests' do
+      result = LonelyPlanet::CliManager.find_accommodation(SPEC_ROOT + '/data/booked_travellers.json', SPEC_ROOT + '/data/booked_accommodation.json', 171)
+
+      result[:accommodation].must_equal 'Accommodation: Wisoky Campsite'
+      result[:guests].must_equal 'Currently no bookings'
+    end
+  end
 end
