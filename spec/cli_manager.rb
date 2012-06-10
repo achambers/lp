@@ -7,7 +7,9 @@ require 'spec_helper'
 require 'json'
 
 describe LonelyPlanet::CliManager do
+
   describe 'the handling of the bin/lpbooker traveller call' do
+
     it 'should return a message when the traveller id is not known' do
       result = LonelyPlanet::CliManager.find_traveller('booked_travellers.json', 'booked_accommodation.json', 98789)
 
@@ -38,6 +40,7 @@ describe LonelyPlanet::CliManager do
   end
 
   describe 'the handling of the bin/lpbooker accommodation call' do
+
     it 'should return a message when the accommodation id is not known' do
       result = LonelyPlanet::CliManager.find_accommodation('booked_travellers.json', 'booked_accommodation.json', 1212)
 
@@ -62,6 +65,7 @@ describe LonelyPlanet::CliManager do
   end
 
   describe 'the handling of the bin/lpbooker search call' do
+    
     it 'should return a search result when an accommodation matches the search criteria' do
       result = LonelyPlanet::CliManager.find_availability('travellers.json', 'accommodation.json', 50, 200, ['internet', 'bath', 'phone'])
 

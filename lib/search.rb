@@ -6,14 +6,19 @@ module LonelyPlanet
       end
 
       def availability(data, params)
-        sorted_data = data.clone.sort { |a, b| a.price <=> b.price }
+        sorted_data = sort_by_price(data)
 
-        match = sorted_data.detect do |accommodation|
+        sorted_data.detect do |accommodation|
           requirements_match?(params, accommodation) && price_match?(params, accommodation) && has_capacity?(accommodation)
         end
       end
 
       private
+
+      def sort_by_price data
+        data.clone.sort { |a, b| a.price <=> b.price }
+      end
+
       def requirements_match?(params, accommodation)
         (params[:requirements] - accommodation.attributes).length == 0
       end

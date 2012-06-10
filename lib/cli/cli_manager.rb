@@ -3,6 +3,7 @@ module LonelyPlanet
     class << self
       def find_traveller(travellers_file, accommodations_file, id)
         travellers = LonelyPlanet.to_travellers(travellers_file)
+        accommodations = LonelyPlanet.to_accommodations(accommodations_file)
 
         traveller = LonelyPlanet::Search.search(travellers, id)
 
@@ -11,8 +12,6 @@ module LonelyPlanet
         result = {:traveller => "Traveller: #{traveller.name}"}
 
         if traveller.booking
-          accommodations = LonelyPlanet.to_accommodations(accommodations_file)
-
           accommodation = LonelyPlanet::Search.search(accommodations, traveller.booking)
 
           if accommodation
@@ -29,6 +28,7 @@ module LonelyPlanet
 
       def find_accommodation(travellers_file, accommodations_file, id)
         accommodations = LonelyPlanet.to_accommodations(accommodations_file)
+        travellers = LonelyPlanet.to_travellers(travellers_file)
 
         accommodation = LonelyPlanet::Search.search(accommodations, id)
 
@@ -36,9 +36,7 @@ module LonelyPlanet
 
         result = {:accommodation => "Accommodation: #{accommodation.name}"}
 
-        if accommodation.guests
-          travellers = LonelyPlanet.to_travellers(travellers_file)
-
+        if accommodation.guests?
           guests = travellers.select do |traveller|
             accommodation.guests.include? traveller.id
           end
@@ -73,13 +71,10 @@ module LonelyPlanet
       end
 
       def load_data(travellers_file, accommodations_file)
-        File.delete(DATA_DIR + '/' + travellers_file) if File.exists?(DATA_DIR + '/' + travellers_file)
-        File.delete(DATA_DIR + '/' + accommodations_file) if File.exists?(DATA_DIR + '/' + accommodations_file)
+        remove_existing_files(travellers_file, accommodations_file)
 
         travellers = LonelyPlanet.to_travellers('travellers_seed.json')
         accommodations = LonelyPlanet.to_accommodations('accommodation_seed')
-        #travellers_seed_data = LonelyPlanet.read_json('/travellers_seed.json')
-        #accommodation_seed_data = LonelyPlanet.read_json('/accommodation_seed.json')
 
         result = LonelyPlanet::BookingMatcher.match(travellers, accommodations)
 
@@ -90,6 +85,11 @@ module LonelyPlanet
         File.open(DATA_DIR + '/' + accommodations_file, 'w') do |f|
           f.write(result[:accommodations].to_json)
         end
+      end
+
+      def remove_existing_files(travellers_file, accommodations_file)
+        File.delete(DATA_DIR + '/' + travellers_file) if File.exists?(DATA_DIR + '/' + travellers_file)
+        File.delete(DATA_DIR + '/' + accommodations_file) if File.exists?(DATA_DIR + '/' + accommodations_file)
       end
     end
   end

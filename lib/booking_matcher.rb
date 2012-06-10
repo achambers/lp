@@ -3,18 +3,10 @@ module LonelyPlanet
     class << self
       def match(travellers, accommodations)
         travellers.each do |traveller|
-          matched_accommodation = LonelyPlanet::Search.availability(accommodations, search_params(traveller))
+          accommodation = LonelyPlanet::Search.availability(accommodations, search_params(traveller))
 
-          if matched_accommodation
-            traveller.booking = matched_accommodation.id
-
-            unless matched_accommodation.guests
-              matched_accommodation.guests = []
-            end
-
-            matched_accommodation.guests << traveller.id
-
-            matched_accommodation.free_capacity -= 1
+          if accommodation
+            link(traveller, accommodation)
           end
         end
 
@@ -23,7 +15,19 @@ module LonelyPlanet
 
       private
 
-      def search_params traveller
+      def link(traveller, accommodation)
+        traveller.booking = accommodation.id
+
+        unless accommodation.guests
+          accommodation.guests = []
+        end
+
+        accommodation.guests << traveller.id
+
+        accommodation.free_capacity -= 1
+      end
+
+      def search_params(traveller)
         {
             :requirements => traveller.requirements,
             :price_min => traveller.min_price,

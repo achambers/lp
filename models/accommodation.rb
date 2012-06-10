@@ -11,4 +11,8 @@ class Accommodation
     @free_capacity = params['capacity']['free']
     @guests = params['guests']
   end
+
+  def guests?
+    !guests.nil? && guests.length > 0
+  end
 end

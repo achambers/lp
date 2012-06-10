@@ -7,7 +7,9 @@ require 'spec_helper'
 require 'json'
 
 describe LonelyPlanet::Search do
+
   describe 'search for travellers' do
+
     before do
       @data = LonelyPlanet.to_travellers('travellers.json')
     end
@@ -28,12 +30,12 @@ describe LonelyPlanet::Search do
   end
 
   describe 'search for accommodation' do
+
     before do
       @data = LonelyPlanet.to_accommodations('accommodation.json')
     end
 
     it 'should return an accommodation for a valid id' do
-      puts @data.class
       accommodation = LonelyPlanet::Search.search(@data, 403)
 
       accommodation.wont_be_nil
@@ -49,6 +51,7 @@ describe LonelyPlanet::Search do
   end
 
   describe 'search for available accommodation' do
+
     before do
       @accommodations = LonelyPlanet.to_accommodations('accommodation.json')
       @travellers = LonelyPlanet.to_travellers('travellers.json')
