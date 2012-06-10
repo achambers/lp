@@ -6,6 +6,16 @@ require 'minitest/autorun'
 require 'spec_helper'
 require 'json'
 
+module LonelyPlanet
+  class AccommodationSearch
+    class << self
+      def search params
+
+      end
+    end
+  end
+end
+
 describe LonelyPlanet::AccommodationSearch do
   before do
     file = File.read('dat/accommodation.json')
@@ -15,9 +25,15 @@ describe LonelyPlanet::AccommodationSearch do
     @traveller_data = JSON.parse(file)
   end
 
-  it 'should not find an accommodation when traveller requirements do not match' do
+  it 'should find an accommodation when traveller requirements match' do
     julian = @traveller_data[0]
 
-    puts julian
+    search_params = {
+        :requirements => julian['requirements']
+    }
+
+    accommodation = LonelyPlanet::AccommodationSearch.search(search_params)
+
+    accommodation.wont_be_nil
   end
 end
