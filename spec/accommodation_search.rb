@@ -9,8 +9,10 @@ require 'json'
 module LonelyPlanet
   class AccommodationSearch
     class << self
-      def search params
-
+      def search_accommodation(data, params)
+        match = data.detect do |accommodation|
+          (params[:requirements] - accommodation['attributes']).length == 0
+        end
       end
     end
   end
@@ -26,14 +28,15 @@ describe LonelyPlanet::AccommodationSearch do
   end
 
   it 'should find an accommodation when traveller requirements match' do
-    julian = @traveller_data[0]
+    wilson = @traveller_data[2]
 
     search_params = {
-        :requirements => julian['requirements']
+        :requirements => wilson['requirements']
     }
 
-    accommodation = LonelyPlanet::AccommodationSearch.search(search_params)
+    accommodation = LonelyPlanet::AccommodationSearch.search_accommodation(@accommodation_data, search_params)
 
     accommodation.wont_be_nil
+    accommodation['name'].must_equal 'Little Backpackers'
   end
 end
