@@ -8,15 +8,15 @@ require 'json'
 
 describe LonelyPlanet::BookingMatcher do
   before do
-    file = File.read(File.dirname(__FILE__) + '/data/accommodation.json')
+    file = File.read(DATA_DIR + '/accommodation.json')
     @accommodation_data = JSON.parse(file)
 
-    file = File.read(File.dirname(__FILE__) + '/data/travellers.json')
+    file = File.read(DATA_DIR + '/travellers.json')
     @traveller_data = JSON.parse(file)
   end
 
   it 'should match travellers with an accommodation' do
-    result = LonelyPlanet::BookingMatcher.load(@traveller_data, @accommodation_data)
+    result = LonelyPlanet::BookingMatcher.match(@traveller_data, @accommodation_data)
     result[:travellers][1]['booking'].must_equal @accommodation_data[4]['id'] #=> Evan Pacocha was booked in to Pouros Campsite
     result[:accommodations][4]['guests'].must_include @traveller_data[1]['id'] #=> Pouros Campsite has had Evan Pacocha allocated as a guest
   end

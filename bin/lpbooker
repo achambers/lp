@@ -6,15 +6,27 @@ require 'clamp'
 require 'json'
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 
+class LoadDataCommand < Clamp::Command
+  parameter "TRAVELLERS_JSON", "travellers JSON data file"
+
+  parameter "ACCOMMODATION_JSON", "accommodation JSON data file"
+
+  def execute
+    result = LonelyPlanet::CliManager.load_data(travellers_json, accommodation_json)
+
+    puts 'Data loaded'
+  end
+end
+
 class AccommodationCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
-    "data/#{s}"
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?(DATA_DIR + '/' + s)
+    s
   end
 
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
-    "data/#{s}"
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?(DATA_DIR + '/' + s)
+    s
   end
 
   parameter "ACCOMMODATION_ID", "Identifier of accommodation to display" do |s| 
@@ -33,13 +45,13 @@ end
 
 class TravellerCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
-    "data/#{s}"
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?(DATA_DIR + '/' + s)
+    s
   end
 
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
-    "data/#{s}"
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?(DATA_DIR + '/' + s)
+    s
   end
 
   parameter "TRAVELLER_ID", "Identifier of traveller to display" do |s| 
@@ -57,13 +69,13 @@ end
 
 class SearchCommand < Clamp::Command
   parameter "TRAVELLERS_JSON", "travellers JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
-    "data/#{s}"
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?(DATA_DIR + '/' + s)
+    s
   end
 
   parameter "ACCOMMODATION_JSON", "accommodation JSON data file" do |s|
-    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?("data/#{s}")
-    "data/#{s}"
+    raise ArgumentError, "File <#{s}> does not exist.  Try running 'lpbooker load_data', then try again" unless File.exists?(DATA_DIR + '/' + s)
+    s
   end
 
   parameter "MIN_PRICE", "Minimum price traveller wants to pay" do |s| 
@@ -88,6 +100,7 @@ class MainCommand < Clamp::Command
   subcommand "accommodation", "Find accommodation details including travellers booked there", AccommodationCommand
   subcommand "traveller", "Find traveller details showing where they are booked", TravellerCommand
   subcommand "search", "Search for suitable accommodation for a traveller", SearchCommand
+  subcommand "load_data", "Load inital traveller and accommodation data sets and match up bookings", LoadDataCommand
 end
 
 MainCommand.run

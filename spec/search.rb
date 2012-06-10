@@ -9,7 +9,7 @@ require 'json'
 describe LonelyPlanet::Search do
   describe 'search for travellers' do
     before do
-      file = File.read(File.dirname(__FILE__) + '/data/travellers.json')
+      file = File.read(DATA_DIR + '/travellers.json')
       @data = JSON.parse(file)
     end
 
@@ -30,7 +30,7 @@ describe LonelyPlanet::Search do
 
   describe 'search for accommodation' do
     before do
-      file = File.read(File.dirname(__FILE__) + '/data/accommodation.json')
+      file = File.read(DATA_DIR + '/accommodation.json')
       @data = JSON.parse(file)
     end
 
@@ -51,10 +51,10 @@ describe LonelyPlanet::Search do
 
   describe 'search for available accommodation' do
     before do
-      file = File.read(File.dirname(__FILE__) + '/data/accommodation.json')
+      file = File.read(DATA_DIR + '/accommodation.json')
       @accommodation_data = JSON.parse(file)
 
-      file = File.read(File.dirname(__FILE__) + '/data/travellers.json')
+      file = File.read(DATA_DIR + '/travellers.json')
       @traveller_data = JSON.parse(file)
     end
 

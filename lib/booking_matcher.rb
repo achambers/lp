@@ -1,7 +1,7 @@
 module LonelyPlanet
   class BookingMatcher
     class << self
-      def load(travellers, accommodations)
+      def match(travellers, accommodations)
         travellers.each do |traveller|
           matched_accommodation = LonelyPlanet::Search.availability(accommodations, search_params(traveller))
 
